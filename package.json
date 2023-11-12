@@ -1,0 +1,16 @@
+{
+  "name": "fsjs-td-proj8",
+  "version": "1.0.0",
+  "description": "Treehouse techdegree eighth project",
+  "main": "models/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node models/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pug": "^3.0.2"
+  }
+}

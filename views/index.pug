@@ -1,11 +1,18 @@
-//- Renders the home / book listings page.
+//- index.pug - Renders the home / book listings page with pagination.
 
 extends layout.pug
 
 block content
   h1= title
-  p
+
+  //- Buttons container
+  div.buttons-container
     a.button(href='/books/new') Create New Book
+    //- Display 'Home' button only if there is a search query
+    if query
+      a.button-link(href='/') Home
+
+  //- Book table
   table
     thead
       tr
@@ -21,3 +28,11 @@ block content
           td= book.author
           td= book.genre
           td= book.year
+
+  //- Pagination
+  if totalPages > 1
+      ul.pagination
+        li
+          a.button(href=`?page=${Math.max(currentPage - 1, 1)}`, aria-label="Previous page", class=(currentPage == 1 ? 'disabled' : '')) ←
+        li
+          a.button(href=`?page=${Math.min(parseInt(currentPage) + 1, totalPages)}`, aria-label="Next page", class=(currentPage == totalPages ? 'disabled' : '')) →

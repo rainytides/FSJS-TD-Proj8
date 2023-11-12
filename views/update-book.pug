@@ -1,0 +1,47 @@
+//- Renders the form to update or delete a book.
+
+extends layout.pug
+
+block content
+  h1= title
+
+  //- Update book form
+  form(action='/books/' + book.id, method='post')
+    //- Display errors if present
+    if errors
+      h2.error Oh no! Something went wrong:
+      ul
+        each error in errors
+          li.error= error.message
+    
+    //- Book title field
+    p
+      label(for='title') Title
+      input#title(name='title', type='text', value=book.title)
+    
+    //- Book author field
+    p
+      label(for='author') Author
+      input#author(name='author', type='text', value=book.author)
+    
+    //- Book genre field
+    p
+      label(for='genre') Genre
+      input#genre(name='genre', type='text', value=book.genre)
+    
+    //- Book year field
+    p
+      label(for='year') Year
+      input#year(name='year', type='number', value=book.year)
+    
+    //- Update button
+    p
+      input(type='submit', value='Update Book')
+
+  //- Delete book form with confirmation
+  form(action='/books/' + book.id + '/delete', method='post', onsubmit="return confirm('Are you sure you want to delete this literary gem?');")
+    //- Cancel and Delete buttons
+    p
+      a.button(href='/') Cancel
+    p
+      input(type='submit', value='Delete Book', class='button-danger')

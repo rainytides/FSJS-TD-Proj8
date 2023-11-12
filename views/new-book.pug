@@ -1,0 +1,39 @@
+//- Renders the form to create a new book for the database.
+
+extends layout.pug
+
+block content
+  h1= title
+  form(action='/books/new', method='post')
+    //- Display errors if any exist
+    if errors
+      h2.error Oops, an error occurred!
+      ul
+        each error in errors
+          li.error= error.message
+
+    //- Title input
+    p
+      label(for='title') Title:
+      input#title(name='title', type='text')
+
+    //- Author input
+    p
+      label(for='author') Author:
+      input#author(name='author', type='text')
+
+    //- Genre input
+    p
+      label(for='genre') Genre:
+      input#genre(name='genre', type='text')
+
+    //- Year input
+    p
+      label(for='year') Year:
+      input#year(name='year', type='number')
+
+    //- Form actions
+    p
+      input(type='submit', value='Create New Book')
+    p
+      a.button(href='/') Cancel

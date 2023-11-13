@@ -1,4 +1,4 @@
-//- index.pug - Renders the home / book listings page with pagination.
+//- Renders the home / book listings page with pagination.
 
 extends layout.pug
 
@@ -8,31 +8,35 @@ block content
   //- Buttons container
   div.buttons-container
     a.button(href='/books/new') Create New Book
-    //- Display 'Home' button only if there is a search query
     if query
       a.button-link(href='/') Home
 
-  //- Book table
-  table
-    thead
-      tr
-        th Title
-        th Author
-        th Genre
-        th Year
-    tbody
-      each book in books
+  //- Conditionally render the book table or the 'no results' message
+  if books.length
+    //- Book table
+    table
+      thead
         tr
-          td
-            a(href=`/books/${book.id}`)= book.title
-          td= book.author
-          td= book.genre
-          td= book.year
+          th Title
+          th Author
+          th Genre
+          th Year
+      tbody
+        each book in books
+          tr
+            td
+              a(href=`/books/${book.id}`)= book.title
+            td= book.author
+            td= book.genre
+            td= book.year
 
-  //- Pagination
-  if totalPages > 1
-      ul.pagination
-        li
-          a.button(href=`?page=${Math.max(currentPage - 1, 1)}`, aria-label="Previous page", class=(currentPage == 1 ? 'disabled' : '')) ←
-        li
-          a.button(href=`?page=${Math.min(parseInt(currentPage) + 1, totalPages)}`, aria-label="Next page", class=(currentPage == totalPages ? 'disabled' : '')) →
+    //- Pagination
+    if totalPages > 1
+        ul.pagination
+          li
+            a.button(href=`?page=${Math.max(currentPage - 1, 1)}`, aria-label="Previous page", class=(currentPage == 1 ? 'disabled' : '')) ←
+          li
+            a.button(href=`?page=${Math.min(parseInt(currentPage) + 1, totalPages)}`, aria-label="Next page", class=(currentPage == totalPages ? 'disabled' : '')) →
+
+  else if query
+    p No results found for "#{query}". Try another search.
